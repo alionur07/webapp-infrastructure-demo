@@ -1,6 +1,6 @@
 output "aws_key_pair" {
   value     = module.ec2.private_key
-  #sensitive = true
+  sensitive = true
 }
 
 output "lb_dnsname" {
