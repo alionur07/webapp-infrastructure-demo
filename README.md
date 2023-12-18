@@ -16,6 +16,9 @@ This project demonstrates a simple NGINX web application using Terraform and Git
 
 Overall, this setup ensures a secure and scalable web application infrastructure with high availability, effective traffic management, and the ability to securely access instances using a Bastion host.
 
+<img width="884" alt="aoa-demo-architectiure" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/c62e8a45-acef-4301-a928-e705ad4b57a0">
+
+
 ```demo-aoa-project/
 ├── main.tf
 ├── variables.tf
