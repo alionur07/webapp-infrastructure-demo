@@ -28,11 +28,14 @@ jobs:
       - name: Create S3 Bucket
         run: |
           aws s3api create-bucket --bucket ${{ env.S3_BUCKET_NAME }} --region ${{ env.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ env.AWS_REGION }}
+
+      - name:  S3 Bucket access block
+        run: |
           aws s3api put-public-access-block --bucket ${{ env.S3_BUCKET_NAME }} --public-access-block-configuration '{
               'BlockPublicAcls': false,
               'IgnorePublicAcls': false,
               'BlockPublicPolicy': false,
-              'RestrictPublicBuckets': false
+              'RestrictPublicBuckets': false              
 
       - name: Create DynamoDB
         run: |
@@ -46,6 +49,7 @@ jobs:
  
   terraform:
     runs-on: ubuntu-20.04
+    needs: dynam-db-installation
 
     steps:
       - name: Checkout code
