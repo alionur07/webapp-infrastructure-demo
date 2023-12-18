@@ -16,7 +16,7 @@ This project demonstrates a simple NGINX web application using Terraform and Git
 
 Overall, this setup ensures a secure and scalable web application infrastructure with high availability, effective traffic management, and the ability to securely access instances using a Bastion host.
 
-<img width="884" alt="aoa-demo-architectiure" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/c62e8a45-acef-4301-a928-e705ad4b57a0">
+<img width="930" alt="aoa-demo-architectiure" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/c62e8a45-acef-4301-a928-e705ad4b57a0">
 
 
 ```demo-aoa-project/
@@ -91,14 +91,20 @@ All steps are triggered automatically after the changes are pushed to the master
 - The pipeline consists of 2 steps.
     - First creation of S3 bucket, DynamoDB and IAM Role.
     - Second Installation of the entire infrastructure. 
-<img width="670" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/c2da71c4-346d-42e5-bbe2-4791618eab6e">
+<img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/c2da71c4-346d-42e5-bbe2-4791618eab6e">
 
+- Terraform outputs
+<img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/8c18b0a4-141b-4f82-bc78-37aa75983694">
 
-
-<img width="984" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/8c18b0a4-141b-4f82-bc78-37aa75983694">
+## Scenario 1
+- AppServer hostnames are shown when application is tested with ALB DNS name
 <img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/0d69b3d7-1f83-4bdb-b194-ffce91785f09">
 <img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/37e54554-aea3-4ad4-a501-d7aa57bdf0ee">
 
+## Scenario 2 and Scenario 3
+- Connecting to a Private EC2 Instance through a Bastion Host and testing the internet connection via the NAT gateway.
+
+- After downloading the key pair information from Terraform output to the local environment, the following commands should be executed
 ```
 chmod 400 aoa-demo_key_pair.pem 
 ssh-add -K aoa-demo_key_pair.pem
@@ -110,9 +116,11 @@ ssh ec2-user@10.0.3.15
 
 
 To destroy the resources, simply respond "yes" to the issue created for the Terraform Destroy step.
-<img width="1096" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/f7862237-08c3-4ea5-bca7-19181d7b4967">
-<img width="923" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/5f7a37ee-3716-4753-b79e-d73c83c0f67b">
-<img width="746" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/c1df9649-44cf-452f-aaa1-c3525a8fe252">
+<img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/751fe8cc-a934-428f-a2cb-cac31de2a9d1">
+
+<img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/f7862237-08c3-4ea5-bca7-19181d7b4967">
+<img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/5f7a37ee-3716-4753-b79e-d73c83c0f67b">
+<img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/c1df9649-44cf-452f-aaa1-c3525a8fe252">
 
 
 
