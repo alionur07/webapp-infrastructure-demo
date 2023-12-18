@@ -38,23 +38,24 @@ jobs:
               "BlockPublicPolicy": false,
               "RestrictPublicBuckets": false              
             }'
+      # - name:  S3 Bucket IAM permission
+      #   run: |    
+      #     aws s3api put-bucket-policy --bucket ${{ env.S3_BUCKET_NAME }} --policy '{
+      #           "Version": "2012-10-17",
+      #           "Statement": [
+      #               {
+      #                   "Effect": "Allow",
+      #                   "Action": "s3:ListBucket",
+      #                   "Resource": "arn:aws:s3:::${{ env.S3_BUCKET_NAME }}"
+      #               },
+      #               {
+      #                   "Effect": "Allow",
+      #                   "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+      #                   "Resource": "arn:aws:s3:::${{ env.S3_BUCKET_NAME }}/${{ env.KEY }}"
+      #               }
+      #           ]
+      #       }'
 
-            # Add specific IAM permissions for S3 bucket
-            aws s3api put-bucket-policy --bucket ${{ env.S3_BUCKET_NAME }} --policy '{
-                "Version": "2012-10-17",
-                "Statement": [
-                    {
-                        "Effect": "Allow",
-                        "Action": "s3:ListBucket",
-                        "Resource": "arn:aws:s3:::${{ env.S3_BUCKET_NAME }}"
-                    },
-                    {
-                        "Effect": "Allow",
-                        "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-                        "Resource": "arn:aws:s3:::${{ env.S3_BUCKET_NAME }}/${{ env.KEY }}"
-                    }
-                ]
-            }'
       - name: Create DynamoDB
         run: |
           aws dynamodb create-table \
@@ -63,23 +64,25 @@ jobs:
               --key-schema AttributeName=ID,KeyType=HASH \
               --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
               --region ${{ env.AWS_REGION }}
-        
-          # Add specific IAM permissions for DynamoDB table
-          aws iam put-role-policy --role-name ${{ env.ROLE_NAME }} --policy-name DynamoDBPolicy --policy-document '{
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Effect": "Allow",
-                    "Action": [
-                        "dynamodb:DescribeTable",
-                        "dynamodb:GetItem",
-                        "dynamodb:PutItem",
-                        "dynamodb:DeleteItem"
-                    ],
-                    "Resource": "arn:aws:dynamodb:${{ env.AWS_REGION }}:*:table/${{ env.DYNAMODB_TABLE_NAME }}"
-                }
-            ]
-          }' --region ${{ env.AWS_REGION }}
+
+      # - name:  DynamoDB IAM permission
+      #   run: |           
+      #     # Add specific IAM permissions for DynamoDB table
+      #     aws iam put-role-policy --role-name ${{ env.ROLE_NAME }} --policy-name DynamoDBPolicy --policy-document '{
+      #       "Version": "2012-10-17",
+      #       "Statement": [
+      #           {
+      #               "Effect": "Allow",
+      #               "Action": [
+      #                   "dynamodb:DescribeTable",
+      #                   "dynamodb:GetItem",
+      #                   "dynamodb:PutItem",
+      #                   "dynamodb:DeleteItem"
+      #               ],
+      #               "Resource": "arn:aws:dynamodb:${{ env.AWS_REGION }}:*:table/${{ env.DYNAMODB_TABLE_NAME }}"
+      #           }
+      #       ]
+      #     }' --region ${{ env.AWS_REGION }}
 
  
   terraform:
