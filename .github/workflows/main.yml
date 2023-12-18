@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  dynam-db-installation:
+  dynam-db-setup:
     runs-on: ubuntu-20.04
 
     env:
@@ -87,21 +87,12 @@ jobs:
 
       - name: Create IAM Role and Attach Admin Policy
         run: |
-           aws iam create-role --role-name ${{ env.ROLE_NAME }} --assume-role-policy-document '{
-               "Version": "2012-10-17",
-               "Statement": [
-                   {
-                       "Effect": "Allow",
-                       "Action": "*",
-                       "Resource": "*"
-                   }
-               ]
-           }' --region ${{ env.AWS_REGION }}
+           aws iam create-role --role-name ${{ env.ROLE_NAME }}  --region ${{ env.AWS_REGION }}
            aws iam attach-role-policy --role-name ${{ env.ROLE_NAME }} --policy-arn arn:aws:iam::aws:policy/AdministratorAccess --region ${{ env.AWS_REGION }}
     
   terraform:
     runs-on: ubuntu-20.04
-    needs: dynam-db-installation
+    needs: dynam-db-setup
 
     steps:
       - name: Checkout code
