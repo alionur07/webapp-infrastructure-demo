@@ -88,9 +88,34 @@ Before running the pipeline, ensure that you have the following dependencies ins
 To test whether the NGINX web page is working, retrieve the loadbalancer dns name from the output of the Terraform Apply step in the pipeline. Also bastion host ip address and generated aws_key_pair.pem information provided by the terraform output.
 All steps are triggered automatically after the changes are pushed to the master branch.
 
+- The pipeline consists of 2 steps.
+    - First creation of S3 bucket, DynamoDB and IAM Role.
+    - Second Installation of the entire infrastructure. 
+<img width="670" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/c2da71c4-346d-42e5-bbe2-4791618eab6e">
+
+
+
+<img width="984" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/8c18b0a4-141b-4f82-bc78-37aa75983694">
+<img width="763" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/0d69b3d7-1f83-4bdb-b194-ffce91785f09">
+<img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/37e54554-aea3-4ad4-a501-d7aa57bdf0ee">
+
+```
+chmod 400 aoa-demo_key_pair.pem 
+ssh-add -K aoa-demo_key_pair.pem
+ssh -A ec2-user@34.246.185.118
+ssh ec2-user@10.0.3.15
+```
+
+![image](https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/ad34e715-48cc-450f-87a4-4f2d133d9d67)
+<img width="1194" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/52dc38b2-206b-4785-8277-49bb10f7cd1e">
 
 
 To destroy the resources, simply respond "yes" to the issue created for the Terraform Destroy step.
+<img width="1096" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/f7862237-08c3-4ea5-bca7-19181d7b4967">
+<img width="923" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/5f7a37ee-3716-4753-b79e-d73c83c0f67b">
+<img width="746" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/c1df9649-44cf-452f-aaa1-c3525a8fe252">
+
+
 
 
 # Troubleshoot
