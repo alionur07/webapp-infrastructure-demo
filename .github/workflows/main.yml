@@ -36,7 +36,7 @@ jobs:
               'IgnorePublicAcls': false,
               'BlockPublicPolicy': false,
               'RestrictPublicBuckets': false              
-
+            }'
       - name: Create DynamoDB
         run: |
           aws dynamodb create-table \
