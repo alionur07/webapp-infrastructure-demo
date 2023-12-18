@@ -59,26 +59,46 @@ Overall, this setup ensures a secure and scalable web application infrastructure
 - outputs.tf: Defines the outputs that you want to expose after applying the Terraform configuration.
 
 # Prerequisites
-Before running the demo NGINX application, ensure that you have the following dependencies installed:
-
-**Terraform backend** 
-- Create an S3 bucket and allow public access.
-- Create DynamoDB.
-- Create a role ARN and attach the admin policy.
+Before running the pipeline, ensure that you have the following dependencies installed:
 
 **Github Env variable** 
 - Create AWS access and secret keys and set them as secret environment variables in GitHub.
+- Check the pipeline env and replace it with the necessary information 
 
+**Terraform backend** 
+- S3 bucket and Dynamodb are automatically created in the pipeline
+
+## Requirements
+| Name             | Version    | 
+| :----------------| :----------|
+| `terraform`      | `>= 0.13.1`|
+| `aws-actions`    | `>=v1`     |
+| `manual-approval`| `>=v1`     |
+
+## Providers
+
+| Name         | Version    | 
+| :------------| :----------|
+| `terraform`  | `>= 0.13.1`|
+| `aws`        | `=5.31.0`  |
+| `tls`        | `>= 4.0`   |
+  
 # Usage
 
-To test whether the NGINX welcome page is working, retrieve the external IP information from the output of the Terraform Apply step in the pipeline. All steps are triggered automatically after the changes are pushed to the master branch.
+To test whether the NGINX web page is working, retrieve the loadbalancer dns name from the output of the Terraform Apply step in the pipeline. Also bastion host ip address and generated aws_key_pair.pem information provided by the terraform output.
+All steps are triggered automatically after the changes are pushed to the master branch.
 
-<img width="1635" alt="image" src="https://github.com/alionur07/demo-aoa/assets/33215825/faeb93fd-de28-4ce1-a423-d9b4b4f8cd03">
-<img width="933" alt="image" src="https://github.com/alionur07/demo-aoa/assets/33215825/29cb6259-73e5-4999-b027-68e970cc7302">
-<img width="1077" alt="image" src="https://github.com/alionur07/demo-aoa/assets/33215825/03190d30-724e-4510-ac78-9931cd130c93">
+
 
 To destroy the resources, simply respond "yes" to the issue created for the Terraform Destroy step.
-<img width="1061" alt="image" src="https://github.com/alionur07/demo-aoa/assets/33215825/1ab231c5-b7e4-4e23-b76a-acb51285be33">
-<img width="1012" alt="image" src="https://github.com/alionur07/demo-aoa/assets/33215825/2f81c4ea-5700-4d11-9da6-e7578102befb">
+
+
+# Troubleshoot
+If an error is received in the approval step please select read and write permission in repo-settings/Actions/General/WorkflowPermissions 
+
+```
+Respond "approved", "approve", "lgtm", "yes" to continue workflow or "denied", "deny", "no" to cancel.
+error creating issue: POST https://api.github.com/repos/alionur07/webapp-infrastructure-demo/issues: 403 Resource not accessible by integration []
+```
 
 
