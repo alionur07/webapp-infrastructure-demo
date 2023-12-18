@@ -96,7 +96,7 @@ All steps are triggered automatically after the changes are pushed to the master
 
 
 <img width="984" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/8c18b0a4-141b-4f82-bc78-37aa75983694">
-<img width="763" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/0d69b3d7-1f83-4bdb-b194-ffce91785f09">
+<img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/0d69b3d7-1f83-4bdb-b194-ffce91785f09">
 <img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/37e54554-aea3-4ad4-a501-d7aa57bdf0ee">
 
 ```
@@ -106,7 +106,6 @@ ssh -A ec2-user@34.246.185.118
 ssh ec2-user@10.0.3.15
 ```
 
-![image](https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/ad34e715-48cc-450f-87a4-4f2d133d9d67)
 <img width="1194" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/52dc38b2-206b-4785-8277-49bb10f7cd1e">
 
 
