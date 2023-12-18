@@ -123,7 +123,7 @@ To destroy the resources, simply respond "yes" to the issue created for the Terr
 <img width="930" alt="image" src="https://github.com/alionur07/webapp-infrastructure-demo/assets/33215825/c1df9649-44cf-452f-aaa1-c3525a8fe252">
 
 
-
+## After the destroy process, backend components should be deleted from the console.
 
 # Troubleshoot
 If an error is received in the approval step please select read and write permission in repo-settings/Actions/General/WorkflowPermissions 
