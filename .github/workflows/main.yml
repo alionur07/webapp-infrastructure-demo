@@ -32,10 +32,10 @@ jobs:
       - name:  S3 Bucket access block
         run: |
           aws s3api put-public-access-block --bucket ${{ env.S3_BUCKET_NAME }} --public-access-block-configuration '{
-              'BlockPublicAcls': false,
-              'IgnorePublicAcls': false,
-              'BlockPublicPolicy': false,
-              'RestrictPublicBuckets': false              
+              "BlockPublicAcls": false,
+              "IgnorePublicAcls": false,
+              "BlockPublicPolicy": false,
+              "RestrictPublicBuckets": false              
             }'
       - name: Create DynamoDB
         run: |
