@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  dynam-db-setup:
+  dynamo-db-setup:
     runs-on: ubuntu-20.04
 
     env:
@@ -68,7 +68,7 @@ jobs:
     
   terraform:
     runs-on: ubuntu-20.04
-    needs: dynam-db-setup
+    needs: dynamo-db-setup
 
     steps:
       - name: Checkout code
