@@ -15,6 +15,7 @@ jobs:
       DYNAMODB_TABLE_NAME: aoa-demo-terraform-state-locking
       KEY: terraform.tfstate
       ROLE_NAME: webapp-infra-demo
+      ACCOUNT_ID: 401939169387
 
     steps:
       - name: Checkout Repository
@@ -87,7 +88,18 @@ jobs:
 
       - name: Create IAM Role and Attach Admin Policy
         run: |
-           aws iam create-role --role-name ${{ env.ROLE_NAME }}  --region ${{ env.AWS_REGION }}
+           aws iam create-role --role-name ${{ env.ROLE_NAME }} --assume-role-policy-document '{
+               "Version": "2012-10-17",
+               "Statement": [
+                   {
+                    "Effect": "Allow",
+                    "Principal": {
+                        "AWS": "arn:aws:iam::${{ env.ACCOUNT_ID }}:root"
+                    },
+                    "Action": "sts:AssumeRole"
+                   }
+               ]
+           }' --region ${{ env.AWS_REGION }}
            aws iam attach-role-policy --role-name ${{ env.ROLE_NAME }} --policy-arn arn:aws:iam::aws:policy/AdministratorAccess --region ${{ env.AWS_REGION }}
     
   terraform:
