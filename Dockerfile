@@ -1,5 +1,5 @@
 # Use a base image with common tools
-FROM  ubuntu:24.04
+FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND noninteractive
 # Install basic dependencies
 RUN apt-get update && apt-get install -y \
@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y \
     openssh-server \
     ansible \
     postgresql \
-    mysql-client
+    mysql-client \
+    nginx 
 
 # Install Docker
 # RUN apt-get install -y ca-certificates curl && \
@@ -62,7 +63,7 @@ RUN wget https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz && \
     rm -rf linux-amd64 helm-v3.7.0-linux-amd64.tar.gz
 
 # Expose SSH port
-# EXPOSE 22
+EXPOSE 80
 
 # Start SSH server
-# ENTRYPOINT ["/bin/bash"]
+CMD ["nginx", "-g", "daemon off;"]
