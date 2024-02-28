@@ -1,5 +1,5 @@
 # Use a base image with common tools
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND noninteractive
 # Install basic dependencies
 RUN apt-get update && apt-get install -y \
@@ -19,11 +19,11 @@ RUN apt-get update && apt-get install -y \
     nginx 
 
 # Install Docker
-# RUN apt-get install -y ca-certificates curl && \
-#     install -m 0755 -d /etc/apt/keyrings && \
-#     curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && chmod a+r /etc/apt/keyrings/docker.asc &&\
-#     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-#     apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+RUN apt-get install -y ca-certificates curl && \
+    install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && chmod a+r /etc/apt/keyrings/docker.asc &&\
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # Install kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
@@ -57,10 +57,11 @@ RUN wget https://github.com/mikefarah/yq/releases/download/v4.12.2/yq_linux_amd6
     chmod +x /usr/local/bin/yq
 
 # Install Helm
-RUN wget https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz && \
-    tar -zxvf helm-v3.7.0-linux-amd64.tar.gz && \
-    mv linux-amd64/helm /usr/local/bin/helm && \
-    rm -rf linux-amd64 helm-v3.7.0-linux-amd64.tar.gz
+RUN curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null && \
+    apt-get install -y apt-transport-https --yes && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list && \
+    apt-get update && apt-get install -y  helm
+
 
 # Expose SSH port
 EXPOSE 80
