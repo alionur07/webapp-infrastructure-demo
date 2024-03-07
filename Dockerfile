@@ -1,6 +1,7 @@
 # Use a base image with common tools
 FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND noninteractive
+
 # Install basic dependencies
 RUN apt-get update && apt-get install -y \
     git \
@@ -16,7 +17,9 @@ RUN apt-get update && apt-get install -y \
     ansible \
     postgresql \
     mysql-client \
-    nginx 
+    nginx \
+    ddnet-tools \
+    telnet
 
 # Install Docker
 RUN apt-get install -y ca-certificates curl && \
